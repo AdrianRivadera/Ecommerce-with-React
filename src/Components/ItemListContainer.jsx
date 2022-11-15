@@ -24,10 +24,10 @@ const ItemListContainer = ({
         <>
             <Items>
                 <div className={`links ${clicked ? 'active' : ''}`}>
-                    <Link className='offset' to='/remeras'>Remeras</Link>
-                    <Link className='offset' to='/pantalones'>Pantalones</Link>
-                    <Link className='offset' to='/buzos'>Buzos</Link>
-                    <Link className='offset' to='/accesorios'>Accesorios</Link>
+                    <Link className='offset' to='/category/1'>Remeras</Link>
+                    <Link className='offset' to='/category/2'>Pantalones</Link>
+                    <Link className='offset' to='/category/3'>Buzos</Link>
+                    <Link className='offset' to='/category/4'>Accesorios</Link>
                     <Link className='corazon offset' to='/favoritos'><FiHeart /></Link>
 
                     <a className='carrito offset' href=""><FiShoppingCart /></a>

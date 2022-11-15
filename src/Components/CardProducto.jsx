@@ -10,20 +10,7 @@ import { Routes, Route, Link, useParams } from 'react-router-dom';
 
 const CardProducto = () => {
 
-    const [datos, setDatos] = useState([])
-    const { idCategory } = useParams()
 
-    useEffect(() => {
-        if (idCategory == undefined) {
-            customFetch(2000, ListadoProductos)
-                .then(result => setDatos(result))
-                .catch(err => console.log(err))
-        } else {
-            customFetch(2000, ListadoProductos.filter(item => item.categoryId == idCategory))
-                .then(result => setDatos(result))
-                .catch(err => console.log(err))
-        }
-    }, [])
 
     return (
         <>

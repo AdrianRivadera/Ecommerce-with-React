@@ -1,9 +1,11 @@
 import React from 'react'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import BurgerButton from './BurgerButton'
+import ListadoProductos from '../utils/ListadoProductos';
+import customFetch from '../utils/customFetch';
 import ItemListContainer from './ItemListContainer'
-import { Routes, Route, Link } from 'react-router-dom';
+import { Routes, Route, Link, useParams } from 'react-router-dom';
 
 
 
@@ -16,25 +18,44 @@ const Navbar = ({ }) => {
         setClicked(!clicked)
     }
 
+    const [datos, setDatos] = useState(ListadoProductos)
+    const { idCategory } = useParams()
+
+
+
+    useEffect(() => {
+        if (idCategory == undefined) {
+            customFetch(2000, ListadoProductos)
+                .then(result => setDatos(result))
+                .catch(err => console.log(err))
+        } else {
+            customFetch(2000, ListadoProductos.filter(item => item.categoryId == idCategory))
+                .then(result => setDatos(result))
+                .catch(err => console.log(err))
+        }
+    }, [idCategory])
+
+
+
     return (
 
         <NavbarContainer>
-                    <Link to='/' className='title'><h2>Tienda <span>Online</span></h2></Link>
-                    <ItemListContainer
-                        clicked={clicked}
-                        setClicked={setClicked}
+            <Link to='/' className='title'><h2>Tienda <span>Online</span></h2></Link>
+            <ItemListContainer
+                clicked={clicked}
+                setClicked={setClicked}
 
-                    />
-                    <div className='burger'>
-                        <BurgerButton
-                            clicked={clicked}
-                            handleClick={handleClick}
-                        />
-                    </div>
-                    <BgDiv
-                        className={`initial ${clicked ? 'active' : ''}`}
-                    >
-                    </BgDiv>
+            />
+            <div className='burger'>
+                <BurgerButton
+                    clicked={clicked}
+                    handleClick={handleClick}
+                />
+            </div>
+            <BgDiv
+                className={`initial ${clicked ? 'active' : ''}`}
+            >
+            </BgDiv>
         </NavbarContainer>
 
     )
