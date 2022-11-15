@@ -1,19 +1,42 @@
 import React from 'react'
 import styled from 'styled-components'
+import Favoritos from './Favoritos';
+import ListadoProductos from '../utils/ListadoProductos';
+import { FiHeart } from "react-icons/fi"
+import { FiShoppingCart } from "react-icons/fi";
+import { Routes, Route, Link, useParams } from 'react-router-dom';
+import { useState } from 'react';
+import { useEffect } from 'react';
+import customFetch from '../utils/customFetch';
 
 
 
-const ItemListContainer = (props) => {
+const ItemListContainer = ({
+    clicked,
+    setClicked,
+    props,
+    Favoritos,
+}) => {
+
+
+
     return (
         <>
             <Items>
-                <div className={`links ${props.clicked ? 'active' : ''}`}>
-                    <a href="">Inicio</a>
-                    <a href="">Productos</a>
-                    <a href="">Sobre Nosotros</a>
-                    <a href="">Carrito</a>
+                <div className={`links ${clicked ? 'active' : ''}`}>
+                    <Link className='offset' to='/remeras'>Remeras</Link>
+                    <Link className='offset' to='/pantalones'>Pantalones</Link>
+                    <Link className='offset' to='/buzos'>Buzos</Link>
+                    <Link className='offset' to='/accesorios'>Accesorios</Link>
+                    <Link className='corazon offset' to='/favoritos'><FiHeart /></Link>
+
+                    <a className='carrito offset' href=""><FiShoppingCart /></a>
                 </div>
             </Items>
+
+
+
+
         </>
     )
 }
@@ -22,12 +45,46 @@ export default ItemListContainer
 
 
 
+
 const Items = styled.div`
-   a{
-    text-decoration: none;
-    margin-right: 3rem;
-    font-size: 1rem;
+
+    @media(min-width: 768px){
+        margin-right: 80px;
+        .links{
+
+            .offset{
+                text-decoration: none;
+                font-size: 1.3rem;
+                font-weight: 400;
+                margin: auto;
+                padding: 8px 16px;
+                transition: .5s;
+                &:hover,
+                &:focus {
+                    box-shadow: 
+                        0 0 0 0 #2A5AA9,
+                        inset 6em 3.5em 0 0 #2A5AA9;
+                }
+            }
+            .corazon{
+                margin-left: 80px;
+                border: none;
+                color: white;
+                background-color: #3b82f6;
+            }
+
+            .corazon, 
+            .carrito{
+                font-size: 1.3rem;
+                padding-top: 14px;
+
+            }
+        }
     }
+
+
+
+
     .links{
         position: absolute;
         top: -700px;

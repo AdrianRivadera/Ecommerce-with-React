@@ -3,11 +3,12 @@ import { useState } from 'react'
 import styled from 'styled-components'
 import BurgerButton from './BurgerButton'
 import ItemListContainer from './ItemListContainer'
+import { Routes, Route, Link } from 'react-router-dom';
 
 
 
 
-const Navbar = () => {
+const Navbar = ({ }) => {
 
     const [clicked, setClicked] = useState(false)
 
@@ -16,27 +17,26 @@ const Navbar = () => {
     }
 
     return (
-        <>
-            <NavbarContainer>
-                <h2>Tienda <span>Online</span></h2>
-                <ItemListContainer
-                    clicked={clicked}
-                    setClicked={setClicked}
-                />
-                <div className='burger'>
-                    <BurgerButton
+
+        <NavbarContainer>
+                    <Link to='/' className='title'><h2>Tienda <span>Online</span></h2></Link>
+                    <ItemListContainer
                         clicked={clicked}
-                        handleClick={handleClick}
+                        setClicked={setClicked}
+
                     />
-                </div>
-                <BgDiv
-                    className={`initial ${clicked ? 'active' : ''}`}
-                >
+                    <div className='burger'>
+                        <BurgerButton
+                            clicked={clicked}
+                            handleClick={handleClick}
+                        />
+                    </div>
+                    <BgDiv
+                        className={`initial ${clicked ? 'active' : ''}`}
+                    >
+                    </BgDiv>
+        </NavbarContainer>
 
-                </BgDiv>
-
-            </NavbarContainer>
-        </>
     )
 }
 
@@ -44,7 +44,12 @@ export default Navbar
 
 
 const NavbarContainer = styled.nav`
+    .title{
+        text-decoration: none;
+
+    }
     h2{font-weight: 500;
+
     text-transform: uppercase;
     margin-left: 10px;
     color: #fff;
@@ -71,8 +76,8 @@ const BgDiv = styled.div`
     top: -700px;
     left: -1000px;
     width: 100%;
-    height: 100%;
-    z-index: -1;
+    height: 1vh;
+    z-index: -99;
     transition: all .6s ease;
 
     &.active{
@@ -81,7 +86,7 @@ const BgDiv = styled.div`
         left: 0;
         width: 100%;
         height: 100%;
-        z-index: -1;
+       // z-index: -1;
     }
     @media(min-width: 768px){
         display: none;
