@@ -1,9 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
 
-
-
-
 const BurgerButton = (props) => {
     return (
         <Burger>
@@ -19,7 +16,6 @@ const BurgerButton = (props) => {
 }
 
 export default BurgerButton
-
 
 const Burger = styled.div`
     .nav-icon-5{
@@ -72,5 +68,4 @@ const Burger = styled.div`
     transform: rotate(-45deg);
     top: 13px;
     }
-
 `

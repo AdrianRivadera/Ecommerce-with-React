@@ -8,8 +8,7 @@ const Portada = () => {
             <ContenedorPortada>
                 <PortadaTexto>
                     <h2>NUEVA COLECCIÓN <span>VERANO 2023</span></h2>
-                    <p>3 cuotas sin interés - Envios a todo el pais.</p>
-                    <button>Ver Todo</button>
+                    <p>6 cuotas sin interés - Envios a todo el pais.</p>
                 </PortadaTexto>
                 <PortadaImg>
                     <img src={ImgPortada} alt="Modelo temporada  verano" />
@@ -56,20 +55,6 @@ const PortadaTexto = styled.div`
         font-size: 1.7rem;
         color: #676666;
         margin-top: 10px;
-    }
-    button{
-        width: 80px;
-        height: 40px;
-        margin-top: 40px;
-        border: none;
-        border-radius: 10px;
-        color: white;
-        background-color: #3b82f6;
-        transition: .5s;
-        cursor: pointer;
-        :hover{
-            background-color: #0e4fb8;
-        }
     }
 `
 const PortadaImg = styled.div`

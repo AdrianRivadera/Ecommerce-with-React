@@ -1,49 +1,57 @@
 import React from 'react'
 import { useEffect, useState } from 'react';
 import styled from 'styled-components'
+import { Link, useParams } from 'react-router-dom';
 import ListadoProductos from '../utils/ListadoProductos';
 import customFetch from '../utils/customFetch';
-
-import { FcLikePlaceholder } from "react-icons/fc"
 import { BsCartPlus } from "react-icons/bs";
-import { Routes, Route, Link, useParams } from 'react-router-dom';
+
 
 const CardProducto = () => {
 
+    const [datos, setDatos] = useState(ListadoProductos)
+    const { idCategory } = useParams()
 
+    useEffect(() => {
+        if (idCategory == undefined) {
+            customFetch(2000, ListadoProductos)
+                .then(result => setDatos(result))
+                .catch(err => console.log(err))
+        } else {
+            customFetch(2000, ListadoProductos.filter(item => item.categoryId == idCategory))
+                .then(result => setDatos(result))
+                .catch(err => console.log(err))
+        }
+    }, [idCategory])
 
     return (
         <>
             <ContenedorCard>
                 {
-                    ListadoProductos.map(item => (
-
+                    datos.map(datos => (
                         <Card
-                            key={item.id}
+                            key={datos.id}
                         >
-
-                            <img src={item.img} alt="Foto Modelo" />
-                            <h3>{item.nombre}</h3>
-                            <p>{item.descripcion}</p>
-                            <div>
-                                <h2>$ {item.precio}</h2>
+                            <Link to={`/item/${datos.id}`} className='link'>
+                                <img src={datos.img} alt="Foto Modelo" />
+                                <h3>{datos.nombre}</h3>
+                                <p>{datos.descripcion}</p>
                                 <div>
-                                    <button className='corazon'><FcLikePlaceholder /></button>
-                                    <button className='agregarCarrito'><BsCartPlus /></button>
-
+                                    <h2>$ {datos.precio}</h2>
+                                    <div>
+                                        <button className='agregarCarrito'><BsCartPlus /></button>
+                                    </div>
                                 </div>
-
-                            </div>
+                            </Link>
                         </Card>
-
-
                     ))
                 }
             </ContenedorCard>
-
         </>
     )
+
 }
+
 
 export default CardProducto
 
@@ -61,7 +69,6 @@ const ContenedorCard = styled.div`
     }
 
 `
-
 const Card = styled.div`
     margin: auto;
     width: 350px;
@@ -75,12 +82,21 @@ const Card = styled.div`
     transform: scale(1);
     box-shadow: 8px 32px 52px rgba(0,0,0,0.2);
     }
+    .link{
+        text-decoration: none;
+        color: black;
+    }
 
     @media(max-width: 768px){
         width: 100%;
+        transform: scale(0.95);
+        transition: box-shadow 0.5s, transform 0.5s;
+        &:hover{
+            transform: none;
+    
+        }
 
     }
-
     img{
         width: 100%;
         height: 320px;
@@ -96,6 +112,7 @@ const Card = styled.div`
     h3{
         font-size: 1.3rem;
         margin: auto;
+        color: black;
         margin: 5px 0;
         text-transform: uppercase;
         font-weight: 400;
@@ -112,8 +129,8 @@ const Card = styled.div`
         align-items: center;
         margin: 16px 20px 0 20px;
         h2{
+        font-size: 2rem;
         text-align: center;
-        font-weight: bold;
         }
         .agregarCarrito{
             font-size: 1.6rem;
@@ -128,25 +145,11 @@ const Card = styled.div`
                 background-color: #53864f;
             }
         }
-        .corazon{
-            background-color: #fa8d8d;
-            border-radius: 50%;
-            font-size: 1.6rem;
-            padding-top: 4px;
-            width: 46px;
-            height: 46px;
-            border: none;
-            margin-right: 6px;
-            cursor: pointer;
-            &:hover{
-                transition: .5s;
-                background-color: #fc4c4c;
-            }
-        }
         div{
             margin:  auto 5px;
         }
     }
 
 `
+
 

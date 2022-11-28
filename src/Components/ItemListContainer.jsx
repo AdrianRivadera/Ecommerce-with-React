@@ -1,57 +1,36 @@
 import React from 'react'
 import styled from 'styled-components'
-import Favoritos from './Favoritos';
-import ListadoProductos from '../utils/ListadoProductos';
-import { FiHeart } from "react-icons/fi"
-import { FiShoppingCart } from "react-icons/fi";
-import { Routes, Route, Link, useParams } from 'react-router-dom';
-import { useState } from 'react';
-import { useEffect } from 'react';
-import customFetch from '../utils/customFetch';
+import { Link } from 'react-router-dom';
+import CartWidget from './CartWidget';
 
 
 
 const ItemListContainer = ({
-    clicked,
-    setClicked,
-    props,
-    Favoritos,
+    clicked, handleClick
 }) => {
-
 
 
     return (
         <>
             <Items>
-                <div className={`links ${clicked ? 'active' : ''}`}>
-                    <Link className='offset' to='/category/1'>Remeras</Link>
-                    <Link className='offset' to='/category/2'>Pantalones</Link>
-                    <Link className='offset' to='/category/3'>Buzos</Link>
+                <div className={`links ${clicked ? 'active' : ''}`} onClick={handleClick}>
+                    <Link className='offset'  to='/category/1'>Remeras</Link>
+                    <Link className='offset' to='/category/2'>Buzos</Link>
+                    <Link className='offset' to='/category/3'>Pantalones</Link>
                     <Link className='offset' to='/category/4'>Accesorios</Link>
-                    <Link className='corazon offset' to='/favoritos'><FiHeart /></Link>
-
-                    <a className='carrito offset' href=""><FiShoppingCart /></a>
+                    <Link to='/cart' className='carrito offset' ><CartWidget /></Link>
                 </div>
             </Items>
-
-
-
-
         </>
     )
 }
 
 export default ItemListContainer
 
-
-
-
 const Items = styled.div`
-
     @media(min-width: 768px){
         margin-right: 80px;
         .links{
-
             .offset{
                 text-decoration: none;
                 font-size: 1.3rem;
@@ -66,26 +45,13 @@ const Items = styled.div`
                         inset 6em 3.5em 0 0 #2A5AA9;
                 }
             }
-            .corazon{
-                margin-left: 80px;
-                border: none;
-                color: white;
-                background-color: #3b82f6;
-            }
-
-            .corazon, 
-            .carrito{
-                font-size: 1.3rem;
-                padding-top: 14px;
-
-            }
         }
     }
-
-
-
-
+    .offset{
+        text-decoration: none;
+    }
     .links{
+        z-index: 98;
         position: absolute;
         top: -700px;
         left: -2000px;

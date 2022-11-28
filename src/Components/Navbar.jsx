@@ -1,14 +1,9 @@
 import React from 'react'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import styled from 'styled-components'
 import BurgerButton from './BurgerButton'
-import ListadoProductos from '../utils/ListadoProductos';
-import customFetch from '../utils/customFetch';
 import ItemListContainer from './ItemListContainer'
-import { Routes, Route, Link, useParams } from 'react-router-dom';
-
-
-
+import { Link } from 'react-router-dom';
 
 const Navbar = ({ }) => {
 
@@ -18,25 +13,6 @@ const Navbar = ({ }) => {
         setClicked(!clicked)
     }
 
-    const [datos, setDatos] = useState(ListadoProductos)
-    const { idCategory } = useParams()
-
-
-
-    useEffect(() => {
-        if (idCategory == undefined) {
-            customFetch(2000, ListadoProductos)
-                .then(result => setDatos(result))
-                .catch(err => console.log(err))
-        } else {
-            customFetch(2000, ListadoProductos.filter(item => item.categoryId == idCategory))
-                .then(result => setDatos(result))
-                .catch(err => console.log(err))
-        }
-    }, [idCategory])
-
-
-
     return (
 
         <NavbarContainer>
@@ -44,7 +20,8 @@ const Navbar = ({ }) => {
             <ItemListContainer
                 clicked={clicked}
                 setClicked={setClicked}
-
+                handleClick={handleClick}
+                
             />
             <div className='burger'>
                 <BurgerButton
@@ -65,9 +42,10 @@ export default Navbar
 
 
 const NavbarContainer = styled.nav`
+    margin-bottom: 60px;
     .title{
         text-decoration: none;
-
+        z-index: 99;
     }
     h2{font-weight: 500;
 
@@ -83,7 +61,9 @@ const NavbarContainer = styled.nav`
     align-items: center;
     justify-content: space-between;  
     height: 70px;
-
+    .burger{
+        z-index: 99;
+    }
     .burger{
         @media(min-width: 768px){
             display: none;
@@ -93,12 +73,12 @@ const NavbarContainer = styled.nav`
 
 const BgDiv = styled.div`
     position: absolute;
+    z-index: 10;
     background-color: #2a6cd6;
     top: -700px;
     left: -1000px;
     width: 100%;
     height: 1vh;
-    z-index: -99;
     transition: all .6s ease;
 
     &.active{
@@ -112,5 +92,4 @@ const BgDiv = styled.div`
     @media(min-width: 768px){
         display: none;
     }
-
 `
