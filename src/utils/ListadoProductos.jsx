@@ -24,7 +24,7 @@ export const ListadoProductos = [
         categoryId: 2,
         stock: 11,
         nombre: 'BUZO FLOR',
-        descripcion: 'Buzo cuello redondo,rib en puño y cintura, estampa plastizol en frente y espalda',
+        descripcion: 'Buzo cuello redondo,rib en puño y cintura',
         precio: 6600,
         img: 'https://d3ugyf2ht6aenh.cloudfront.net/stores/002/006/772/products/juliiiiaaa1-0ce18033950d0684fa16487413833526-1024-1024.jpg'
     },

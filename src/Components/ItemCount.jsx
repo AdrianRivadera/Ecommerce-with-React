@@ -1,6 +1,7 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
 import styled from 'styled-components'
+import Swal from 'sweetalert2';
 
 
 const ItemCount = ({ initial, stock, onAdd }) => {
@@ -18,6 +19,15 @@ const ItemCount = ({ initial, stock, onAdd }) => {
     setCount(parseInt(initial));
   }, [initial])
 
+  const confirmarCompra = () => {
+    Swal.fire(
+      'AGREGADO AL CARRITO',
+      '',
+      'success'
+    )
+  }
+
+
   return (
     <Counter>
       <button disabled={count <= 0} onClick={decrease}>-</button>
@@ -27,7 +37,11 @@ const ItemCount = ({ initial, stock, onAdd }) => {
         <button
           className='agregar'
           disabled={count <= 0}
-          onClick={() => onAdd(count)}
+          onClick={() => 
+            {
+              onAdd(count); 
+              confirmarCompra()
+            }}
         >
           Agregar al carrito
         </button>

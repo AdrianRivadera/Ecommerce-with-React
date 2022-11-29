@@ -1,9 +1,12 @@
 import React, { useContext } from 'react'
 import styled from 'styled-components'
+
 import { Link } from 'react-router-dom';
 import FormatNumber from '../utils/FormatNumber';
 import { CartContext } from './CartContext'
 import { Button } from '@mui/material';
+
+
 
 
 
@@ -18,6 +21,7 @@ const Cart = (item) => {
     const { calcSubTotal } = useContext(CartContext)
     const { calcTaxes } = useContext(CartContext)
     const { calcTotal } = useContext(CartContext)
+
 
     return (
         <CartContainer>
@@ -127,6 +131,10 @@ const Top = styled.div`
 
 const TopText = styled.h3`
     text-transform: uppercase;
+    @media(max-width: 768px){
+        text-align: center;
+        margin: auto;
+    }
 `
 
 const ContentCart = styled.div`

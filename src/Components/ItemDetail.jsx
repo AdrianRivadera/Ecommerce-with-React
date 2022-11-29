@@ -5,12 +5,15 @@ import { useContext } from 'react';
 import { CartContext } from './CartContext';
 
 
+
 const ItemDetail = ({ item }) => {
     const { addToCart } = useContext(CartContext)
 
     const onAdd = (quantity) => {
         addToCart(item, quantity)
     }
+
+
 
     return (
         <>
