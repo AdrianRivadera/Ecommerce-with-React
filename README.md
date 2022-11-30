@@ -18,7 +18,7 @@
 
 
 
-Tienda Online responsive. En este proyecto se pueden ver diferentes tipos de productos, traídos de un Array de objetos, los cuales pueden ser filtrados por sus características. La tienda simula un carrito de compras donde se le pueden agregar productos y se realizará la sumatoria de ítems, dinero, impuestos, etc.
+Ecommerce responsive. In this project you can see different types of products, brought from an Array of objects, which can be filtered for their characteristics. The store simulates a shopping cart where products can be added and the sum of items, money, taxes, etc. will be made.
 
 
 ### Built With
