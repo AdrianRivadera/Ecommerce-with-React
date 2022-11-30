@@ -24,6 +24,8 @@ Tienda Online responsive. En este proyecto se pueden ver diferentes tipos de pro
 
 ### Built With
 
+
+ <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/html5/html5-original-wordmark.svg" alt="html5" width="40" height="40"/> 
 * [![React][React.js]][React-url]
 * [![JavaScript][JavaScript.com]][JavaScript-url]
 * [![Bootstrap][Bootstrap.com]][Bootstrap-url]SiJavascript
