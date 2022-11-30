@@ -16,7 +16,6 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
 
 
 Tienda Online responsive. En este proyecto se pueden ver diferentes tipos de productos, traídos de un Array de objetos, los cuales pueden ser filtrados por sus características. La tienda simula un carrito de compras donde se le pueden agregar productos y se realizará la sumatoria de ítems, dinero, impuestos, etc.
