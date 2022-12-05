@@ -2,27 +2,27 @@ import React from 'react'
 import { useEffect, useState } from 'react';
 import styled from 'styled-components'
 import { Link, useParams } from 'react-router-dom';
-import ListadoProductos from '../utils/ListadoProductos';
-import customFetch from '../utils/customFetch';
 import { BsCartPlus } from "react-icons/bs";
+import { firestoreFetch } from '../utils/firestoreFetch';
 
 
 const CardProducto = () => {
 
-    const [datos, setDatos] = useState(ListadoProductos)
+    const [datos, setDatos] = useState([])
     const { idCategory } = useParams()
 
-    useEffect(() => {
-        if (idCategory == undefined) {
-            customFetch(2000, ListadoProductos)
-                .then(result => setDatos(result))
-                .catch(err => console.log(err))
-        } else {
-            customFetch(2000, ListadoProductos.filter(item => item.categoryId == idCategory))
-                .then(result => setDatos(result))
-                .catch(err => console.log(err))
-        }
+    useEffect(async () => {
+        firestoreFetch(idCategory)
+            .then(result => setDatos(result))
+            .catch(err => console.console.log(err))
     }, [idCategory])
+    
+
+    useEffect(() => {
+        return (() => {
+            setDatos([]);
+        })
+    }, [])
 
     return (
         <>

@@ -33,13 +33,13 @@ const ItemDetail = ({ item }) => {
                     </Envios>
 
 
-                    <p className='disponible'><span>{item.stock}</span> Disponibles</p>    
+                    <p className='disponible'><span>{item.stock}</span> Disponibles</p>
 
-                    <ItemCount 
-                        initial={0} 
+                    <ItemCount
+                        initial={0}
                         onAdd={onAdd}
                         stock={item.stock}
-                    /> 
+                    />
                 </TextContainer>
             </ItemDeatil>
 
@@ -79,9 +79,7 @@ const ImgContainer = styled.div`
         margin: auto;
         padding: 10px;
         justify-content: center;
-
     }
-
     img{
         height: 85%;
         border-radius: 14px;
@@ -150,7 +148,6 @@ const TextContainer = styled.div`
             font-weight: bold;
         }
     }
-
 `
 const Envios = styled.div`
     display: flex;
@@ -158,7 +155,6 @@ const Envios = styled.div`
     align-items: center;
     margin-top: 20px;
     margin-bottom: 40px;
-
     .envio{
         color: #00a650;
         font-weight: 700;

@@ -1,10 +1,12 @@
 import React, { useContext } from 'react'
 import styled from 'styled-components'
-
 import { Link } from 'react-router-dom';
 import FormatNumber from '../utils/FormatNumber';
 import { CartContext } from './CartContext'
 import { Button } from '@mui/material';
+import { collection, increment, serverTimestamp, updateDoc } from 'firebase/firestore';
+import { doc, setDoc } from "firebase/firestore";
+import { db } from '../utils/firebaseConfig';
 
 
 
@@ -21,6 +23,43 @@ const Cart = (item) => {
     const { calcSubTotal } = useContext(CartContext)
     const { calcTaxes } = useContext(CartContext)
     const { calcTotal } = useContext(CartContext)
+
+    const createOrder = () => {
+        let order = {
+            buyer: {
+                name: 'Adrian Rivadera',
+                email: 'adrianerivadera@gmail.com',
+                phone: '12121212'
+            },
+            date: serverTimestamp(),
+            items: cartList.map(item => ({
+                id: item.idItem,
+                price: item.costItem,
+                title: item.nameItem,
+                qty: item.qtyItem
+            }))
+        }
+        console.log(order)
+
+        const createOrderInFirestore = async () => {
+            const newOrderRef = doc(collection(db, 'orders'));
+            await setDoc(newOrderRef, order);
+            return newOrderRef
+        }
+
+        createOrderInFirestore()
+            .then(response => {
+                alert('Order ID = ' + response.id)
+                cartList.forEach(async(item) => {
+                    const itemRef = doc(db, "products", item.idItem);
+                    await updateDoc(itemRef,{
+                        stock: increment(-item.qtyItem)
+                    });
+                })
+                removeList()
+            })
+            .catch(err => console.log(err))
+    }
 
 
     return (
@@ -66,26 +105,26 @@ const Cart = (item) => {
                 </InfoCart>
                 {
                     cartList.length > 0 &&
-                        <Sumarry>
-                            <SumarryTitle>Tu orden</SumarryTitle>
-                            <SumarryItem>
-                                <SumarryItemText>Subtotal</SumarryItemText>
-                                <SumarryItemText><FormatNumber number={calcSubTotal()} /></SumarryItemText>
-                            </SumarryItem>
-                            <SumarryItem>
-                                <SumarryItemText>Impuestos</SumarryItemText>
-                                <SumarryItemText><FormatNumber number={calcTaxes()} /></SumarryItemText>
-                            </SumarryItem>
-                            <SumarryItem>
-                                <SumarryItemText>Descuentos</SumarryItemText>
-                                <SumarryItemText><FormatNumber number={-calcTaxes()} /></SumarryItemText>
-                            </SumarryItem>
-                            <SumarryItemTotal type="total">
-                                <SumarryItemTextTotal>Total</SumarryItemTextTotal>
-                                <SumarryItemTextTotal><FormatNumber number={calcTotal()} /></SumarryItemTextTotal>
-                            </SumarryItemTotal>
-                            <Button className='ButtonEnd'>Finalizar compra</Button>
-                        </Sumarry>
+                    <Sumarry>
+                        <SumarryTitle>Tu orden</SumarryTitle>
+                        <SumarryItem>
+                            <SumarryItemText>Subtotal</SumarryItemText>
+                            <SumarryItemText><FormatNumber number={calcSubTotal()} /></SumarryItemText>
+                        </SumarryItem>
+                        <SumarryItem>
+                            <SumarryItemText>Impuestos</SumarryItemText>
+                            <SumarryItemText><FormatNumber number={calcTaxes()} /></SumarryItemText>
+                        </SumarryItem>
+                        <SumarryItem>
+                            <SumarryItemText>Descuentos</SumarryItemText>
+                            <SumarryItemText><FormatNumber number={-calcTaxes()} /></SumarryItemText>
+                        </SumarryItem>
+                        <SumarryItemTotal type="total">
+                            <SumarryItemTextTotal>Total</SumarryItemTextTotal>
+                            <SumarryItemTextTotal><FormatNumber number={calcTotal()} /></SumarryItemTextTotal>
+                        </SumarryItemTotal>
+                        <Button className='ButtonEnd' onClick={createOrder}>Finalizar compra</Button>
+                    </Sumarry>
                 }
             </ContentCart>
         </CartContainer>
