@@ -11,7 +11,7 @@ const CardProducto = () => {
     const [datos, setDatos] = useState([])
     const { idCategory } = useParams()
 
-    useEffect(async () => {
+    useEffect(() => {
         firestoreFetch(idCategory)
             .then(result => setDatos(result))
             .catch(err => console.console.log(err))
